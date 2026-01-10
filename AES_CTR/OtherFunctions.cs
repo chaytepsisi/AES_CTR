@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AES_CTR
 {
@@ -16,8 +17,15 @@ namespace AES_CTR
         {
             int NumberChars = hex.Length;
             byte[] bytes = new byte[NumberChars / 2];
-            for (int i = 0; i < NumberChars; i += 2)
-                bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
+            try
+            {
+                for (int i = 0; i < NumberChars; i += 2)
+                    bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
+            } catch(System.ArgumentOutOfRangeException ex)
+            {
+                MessageBox.Show("Hex dizisinin uzunluğu çift olmalıdır.");
+                return null;    
+            }
             return bytes;
         }
         public static byte[] BinaryStringToByteArray(string input)
