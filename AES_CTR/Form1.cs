@@ -161,6 +161,8 @@ namespace AES_CTR
             Array.Copy(IV, newSeed, IV.Length);
 
             int limit = (int)Math.Ceiling(KeyStreamSize * 1.0 / BLOCK_BYTE_SIZE);
+            if (limit == 0)
+                limit = 1;
             byte[] output;
             StreamWriter writer = new StreamWriter(fileName);
             int outputSize = KeyStreamBitSize;
