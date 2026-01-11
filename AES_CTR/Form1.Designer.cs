@@ -49,8 +49,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.KeyStreamSizeTbx = new System.Windows.Forms.TextBox();
-            //this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.progressBar1 = new ProgressBarEx();
+            this.progressBar1 = new AES_CTR.ProgressBarEx();
             this.EncryptionBgw = new System.ComponentModel.BackgroundWorker();
             this.OpenFolderButton = new System.Windows.Forms.Button();
             this.TimerLabel = new System.Windows.Forms.Label();
@@ -106,6 +105,7 @@
             this.KeyTbx.Size = new System.Drawing.Size(356, 22);
             this.KeyTbx.TabIndex = 6;
             this.KeyTbx.TextChanged += new System.EventHandler(this.KeyTbx_TextChanged);
+            this.KeyTbx.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyTbx_KeyDown);
             // 
             // button2
             // 
@@ -226,6 +226,7 @@
             this.IVTbx.Size = new System.Drawing.Size(356, 22);
             this.IVTbx.TabIndex = 6;
             this.IVTbx.TextChanged += new System.EventHandler(this.IVTbx_TextChanged);
+            this.IVTbx.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IVTbx_KeyDown);
             // 
             // label4
             // 
@@ -275,11 +276,14 @@
             // 
             // progressBar1
             // 
+            this.progressBar1.DisplayType = AES_CTR.ProgressBarEx.TextDisplayType.Percent;
             this.progressBar1.Location = new System.Drawing.Point(8, 157);
+            this.progressBar1.ManualText = "";
             this.progressBar1.Margin = new System.Windows.Forms.Padding(4);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(691, 28);
             this.progressBar1.TabIndex = 17;
+            this.progressBar1.TextColor = System.Drawing.SystemColors.ControlText;
             // 
             // EncryptionBgw
             // 

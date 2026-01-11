@@ -7,13 +7,13 @@ using System.Windows.Forms;
 
 namespace AES_CTR
 {
-    internal class OtherFunctions
+    public class OtherFunctions
     {
         public static string ByteArrayToHexString(byte[] ba)
         {
             return BitConverter.ToString(ba).Replace("-", "");
         }
-        public static byte[] HexStringToByteArray(String hex)
+        public static byte[] HexStringToByteArray(string hex)
         {
             int NumberChars = hex.Length;
             byte[] bytes = new byte[NumberChars / 2];
@@ -21,10 +21,19 @@ namespace AES_CTR
             {
                 for (int i = 0; i < NumberChars; i += 2)
                     bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
-            } catch(System.ArgumentOutOfRangeException ex)
+            } catch(ArgumentOutOfRangeException ex)
             {
-                MessageBox.Show("Hex dizisinin uzunluğu çift olmalıdır.");
-                return null;    
+                MessageBox.Show("Hex dizinin uzunluğu çift olmalıdır.");
+                throw ex;
+            }
+            catch(FormatException ex)
+            {
+                MessageBox.Show("Hex dizisi geçersiz karakterler içeriyor.");
+                throw ex;
+            }catch(Exception ex)
+            {
+                MessageBox.Show("Hex dizisi işlenemedi.");
+                throw ex;
             }
             return bytes;
         }
@@ -32,9 +41,28 @@ namespace AES_CTR
         {
             int numOfBytes = input.Length / 8;
             byte[] bytes = new byte[numOfBytes];
-            for (int i = 0; i < numOfBytes; ++i)
-                bytes[i] = Convert.ToByte(input.Substring(8 * i, 8), 2);
+            try
+            {
+                for (int i = 0; i < numOfBytes; ++i)
+                    bytes[i] = Convert.ToByte(input.Substring(8 * i, 8), 2);
+            }catch(Exception ex)
+            {
+                MessageBox.Show("İkili dizi işlenemedi.");
+                throw ex;
+            }
             return bytes;
+        }
+        public static byte[] StringToByteArray(string input, int radix)
+        {
+            if (radix == 2)
+            {
+                return BinaryStringToByteArray(input);
+            }
+            else if (radix == 16)
+            {
+                return HexStringToByteArray(input);
+            }
+            else return null;
         }
         public static string ByteArrayToBinaryString(byte[] ba)
         {
